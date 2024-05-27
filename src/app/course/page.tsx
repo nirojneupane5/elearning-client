@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCourse } from "@/api/course-api";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   course_name: z.string().min(2, { message: "Please enter the course name" }),
@@ -31,6 +32,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 const Course = () => {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,6 +46,12 @@ const Course = () => {
 
   const mutation = useMutation<FormValues, Error, FormValues>({
     mutationFn: createCourse,
+    onError: () => {
+      toast({
+        variant: "destructive",
+        title: "Error white submitting the form",
+      });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["course"] });
     },
