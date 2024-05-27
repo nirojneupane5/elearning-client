@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCourse } from "@/api/course-api";
 import { useToast } from "@/components/ui/use-toast";
+import { AxiosError } from "axios";
 
 const formSchema = z.object({
   course_name: z.string().min(2, { message: "Please enter the course name" }),
@@ -46,11 +47,15 @@ const Course = () => {
 
   const mutation = useMutation({
     mutationFn: createCourse,
-    onError: (error: Error) => {
+    onError: (error: AxiosError) => {
+      let errorResponse =
+        JSON.stringify(error.response?.data) ||
+        "An unexpected error has occurred";
+      console.log(errorResponse);
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.message,
+        description: errorResponse,
       });
     },
     onSuccess: () => {
@@ -58,7 +63,7 @@ const Course = () => {
       toast({
         variant: "sucess",
         title: "Success",
-        description: "Form Submitted sucessfully",
+        description: "Course created successfully",
       });
       queryClient.invalidateQueries({ queryKey: ["course"] });
     },
