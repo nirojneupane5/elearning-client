@@ -54,6 +54,11 @@ const Course = () => {
       });
     },
     onSuccess: () => {
+      toast({
+        variant: "sucess",
+        title: "Success",
+        description: "Form Submitted sucessfully",
+      });
       queryClient.invalidateQueries({ queryKey: ["course"] });
     },
   });
