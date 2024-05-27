@@ -44,12 +44,13 @@ const Course = () => {
 
   const fileRef = form.register("image");
 
-  const mutation = useMutation<FormValues, Error, FormValues>({
+  const mutation = useMutation({
     mutationFn: createCourse,
-    onError: () => {
+    onError: (error) => {
       toast({
         variant: "destructive",
-        title: "Error white submitting the form",
+        title: "Error",
+        description: error.message,
       });
     },
     onSuccess: () => {
@@ -58,7 +59,15 @@ const Course = () => {
   });
 
   const onSubmit = (values: FormValues) => {
-    mutation.mutate(values);
+    const formData = new FormData();
+    formData.append("course_name", values.course_name);
+    formData.append("course_desc", values.course_desc);
+    formData.append("price", values.price.toString());
+
+    if (values.image && values.image[0]) {
+      formData.append("image", values.image[0]);
+    }
+    mutation.mutate(formData);
   };
   return (
     <div>
