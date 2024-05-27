@@ -12,6 +12,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createCourse } from "@/api/course-api";
 
 const formSchema = z.object({
   course_name: z.string().min(2, { message: "Please enter the course name" }),
@@ -19,14 +21,17 @@ const formSchema = z.object({
     message: "Course description must be at least 20 characters long",
   }),
   price: z.number().min(0, { message: "Please enter the course price" }),
-  file: z
+  image: z
     .any()
     .refine((file) => file?.length == 1, "Image is required")
     .optional(),
 });
 
+type FormValues = z.infer<typeof formSchema>;
+
 const Course = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const queryClient = useQueryClient();
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       course_name: "",
@@ -35,10 +40,17 @@ const Course = () => {
     },
   });
 
-  const fileRef = form.register("file");
+  const fileRef = form.register("image");
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const mutation = useMutation<FormValues, Error, FormValues>({
+    mutationFn: createCourse,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["course"] });
+    },
+  });
+
+  const onSubmit = (values: FormValues) => {
+    mutation.mutate(values);
   };
   return (
     <div>
@@ -104,7 +116,7 @@ const Course = () => {
 
           <FormField
             control={form.control}
-            name="file"
+            name="image"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Course Image</FormLabel>
