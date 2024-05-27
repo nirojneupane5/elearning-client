@@ -46,7 +46,7 @@ const Course = () => {
 
   const mutation = useMutation({
     mutationFn: createCourse,
-    onError: (error) => {
+    onError: (error: Error) => {
       toast({
         variant: "destructive",
         title: "Error",
@@ -54,6 +54,7 @@ const Course = () => {
       });
     },
     onSuccess: () => {
+      form.reset();
       toast({
         variant: "sucess",
         title: "Success",
