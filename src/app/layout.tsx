@@ -12,8 +12,6 @@ export const metadata: Metadata = {
   description: "Elearning platform",
 };
 
-const queryClient = new QueryClient();
-
 export default function RootLayout({
   children,
 }: Readonly<{
