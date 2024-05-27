@@ -25,7 +25,7 @@ const formSchema = z.object({
     .optional(),
 });
 
-const course = () => {
+const Course = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -128,4 +128,4 @@ const course = () => {
   );
 };
 
-export default course;
+export default Course;
