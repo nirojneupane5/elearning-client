@@ -16,6 +16,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCourse } from "@/api/course-api";
 import { useToast } from "@/components/ui/use-toast";
 import { AxiosError } from "axios";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   course_name: z.string().min(2, { message: "Please enter the course name" }),
@@ -51,7 +52,6 @@ const Course = () => {
       let errorResponse =
         JSON.stringify(error.response?.data) ||
         "An unexpected error has occurred";
-      console.log(errorResponse);
       toast({
         variant: "destructive",
         title: "Error",
@@ -83,7 +83,10 @@ const Course = () => {
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-8 max-w-[400px]"
+        >
           <FormField
             control={form.control}
             name="course_name"
@@ -91,11 +94,7 @@ const Course = () => {
               <FormItem>
                 <FormLabel>Course Name</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Course name"
-                    {...field}
-                    className="max-w-[400px]"
-                  />
+                  <Input placeholder="Course name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -108,10 +107,10 @@ const Course = () => {
               <FormItem>
                 <FormLabel>Course Description</FormLabel>
                 <FormControl>
-                  <Input
+                  <Textarea
                     placeholder="Course Description"
+                    className="h-[200px]"
                     {...field}
-                    className="max-w-[400px]"
                   />
                 </FormControl>
                 <FormMessage />
@@ -129,7 +128,6 @@ const Course = () => {
                     placeholder="Price"
                     type="number"
                     {...field}
-                    className="max-w-[400px]"
                     onChange={(e) =>
                       field.onChange(
                         e.target.value ? parseFloat(e.target.value) : ""
@@ -153,7 +151,6 @@ const Course = () => {
                     placeholder="Course Image"
                     type="file"
                     {...fileRef}
-                    className="max-w-[400px]"
                     accept="image/png, image/jpeg"
                   />
                 </FormControl>
