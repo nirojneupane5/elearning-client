@@ -4,6 +4,7 @@ import "./globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryCLientProvider } from "@/provider/ReactQueryProvider";
 import { Toaster } from "@/components/ui/toaster";
+import Navbar from "./(nav)/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,12 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="max-w-[1320px] mx-auto">
-          <ReactQueryCLientProvider>
-            {children}
-            <Toaster />
-          </ReactQueryCLientProvider>
-        </div>
+        <ReactQueryCLientProvider>
+          <Navbar />
+          {children}
+          <Toaster />
+        </ReactQueryCLientProvider>
       </body>
     </html>
   );
