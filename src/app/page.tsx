@@ -1,11 +1,14 @@
 import { displayCourse, TCourse } from "@/api/course-api";
+import { Suspense } from "react";
+import DisplayCourse from "./(course)/displayCourse.tsx/page";
 
 const Home = async () => {
-  const data = await displayCourse<TCourse>();
+  const courseData = await displayCourse<TCourse>();
   return (
     <main className="max-w-[1320px] mx-auto">
-      {data &&
-        data.map((info, index) => <h1 key={index}>{info.course_name}</h1>)}
+      <Suspense fallback={<div>Loading...</div>}>
+        <DisplayCourse courseData={courseData} />
+      </Suspense>
     </main>
   );
 };
