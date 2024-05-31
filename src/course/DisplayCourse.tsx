@@ -10,7 +10,10 @@ export default function DisplayCourse({ courseData }: CourseProps) {
     <section>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 pt-2">
         {courseData.map((info, index) => (
-          <div key={index} className="shadow-md rounded-md text-center">
+          <div
+            key={index}
+            className="shadow-md rounded-md text-center hover:bg-slate-200"
+          >
             <div className="overflow-hidden">
               <Image
                 src={`${process.env.NEXT_PUBLIC_COURSE_IMAGE}/${info.course_image}`}
