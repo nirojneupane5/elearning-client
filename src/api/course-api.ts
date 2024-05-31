@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export type TCourse={
+    _id:string;
     course_name:string;
     course_desc:string;
     price:string;
