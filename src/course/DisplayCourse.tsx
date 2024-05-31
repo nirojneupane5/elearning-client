@@ -8,7 +8,7 @@ type CourseProps = {
 export default function DisplayCourse({ courseData }: CourseProps) {
   return (
     <section>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 pt-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 pt-2 px-3">
         {courseData.map((info, index) => (
           <div
             key={index}
