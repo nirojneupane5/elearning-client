@@ -1,9 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { displayCourse, TCourse } from "@/api/course-api";
 
-export default function Home() {
+const Home = async () => {
+  const data = await displayCourse<TCourse>();
   return (
-    <div className="text-red-500">
-      <Button>Hello</Button>
-    </div>
+    <main className="max-w-[1320px] mx-auto">
+      {data &&
+        data.map((info, index) => <h1 key={index}>{info.course_name}</h1>)}
+    </main>
   );
-}
+};
+
+export default Home;
