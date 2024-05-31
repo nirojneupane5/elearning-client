@@ -1,4 +1,5 @@
 import { TCourse } from "@/api/course-api";
+import Image from "next/image";
 
 type CourseProps = {
   courseData: TCourse;
@@ -11,10 +12,12 @@ export default function DisplayCourse({ courseData }: CourseProps) {
         {courseData.map((info, index) => (
           <div key={index} className="shadow-md rounded-md text-center">
             <div className="overflow-hidden">
-              <img
+              <Image
                 src={`${process.env.NEXT_PUBLIC_COURSE_IMAGE}/${info.course_image}`}
                 alt="Course Image"
                 className="object-cover h-[200px] w-full hover:scale-150 duration-300"
+                width={500}
+                height={500}
               />
             </div>
             <h1>{info.course_name}</h1>
