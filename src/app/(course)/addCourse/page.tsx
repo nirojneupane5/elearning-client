@@ -20,7 +20,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   course_name: z.string().min(2, { message: "Please enter the course name" }),
-  course_desc: z.string().min(2, {
+  course_desc: z.string().min(20, {
     message: "Course description must be at least 20 characters long",
   }),
   price: z.number().min(0, { message: "Please enter the course price" }),
