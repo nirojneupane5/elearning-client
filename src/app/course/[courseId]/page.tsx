@@ -34,9 +34,13 @@ const DisplaySingleCourse = async ({
               {data.course_desc.slice(0, 913)} -
             </p>
           </div>
-          <p className="text-xl font-light text-black text-justify">
+          <p className="text-xl font-light text-black text-justify py-3">
             {" "}
-            {data.course_desc.slice(913)}
+            {data.course_desc.slice(913, 1476)} -
+          </p>
+          <p className="text-xl font-light text-black text-justify py-3">
+            {" "}
+            {data.course_desc.slice(1476)} -
           </p>
         </div>
       </Suspense>
