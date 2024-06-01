@@ -9,19 +9,18 @@ type CourseProps = {
 export default function DisplayCourse({ courseData }: CourseProps) {
   return (
     <section>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 pt-2 px-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 pt-4 px-3">
         {courseData.map((info, index) => (
           <Link href={`/course/${info._id}`} key={index}>
-            <div className="shadow-md rounded-md text-center hover:bg-slate-200">
-              <div className="overflow-hidden">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_COURSE_IMAGE}/${info.course_image}`}
-                  alt="Course Image"
-                  className="object-cover h-[200px] w-full hover:scale-150 duration-300"
-                  width={500}
-                  height={500}
-                />
-              </div>
+            <div className="shadow-md rounded-md text-center hover:scale-105 hover:shadow-xl duration-300">
+              <Image
+                src={`${process.env.NEXT_PUBLIC_COURSE_IMAGE}/${info.course_image}`}
+                alt="Course Image"
+                className="object-cover h-[200px] w-full"
+                width={500}
+                height={500}
+              />
+
               <div className="px-2 py-2">
                 <h1>
                   Course Name:{" "}
