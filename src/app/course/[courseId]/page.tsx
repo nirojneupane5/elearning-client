@@ -31,9 +31,13 @@ const DisplaySingleCourse = async ({
               </h2>
             </div>
             <p className="text-xl font-light text-black text-justify px-4">
-              {data.course_desc}
+              {data.course_desc.slice(0, 913)} -
             </p>
           </div>
+          <p className="text-xl font-light text-black text-justify">
+            {" "}
+            {data.course_desc.slice(913)}
+          </p>
         </div>
       </Suspense>
     </section>
