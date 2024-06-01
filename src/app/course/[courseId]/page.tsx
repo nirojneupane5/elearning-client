@@ -13,24 +13,24 @@ const DisplaySingleCourse = async ({
     <section>
       <Suspense fallback={<div>Loading...</div>}>
         <div className="max-w-[1320px] mx-auto">
-          <h1 className="text-2xl font-bold text-black py-2">
+          <h1 className="text-xl md:text-2xl font-bold text-black py-2 px-4">
             Course Name: {data.course_name}
           </h1>
-          <div className="grid grid-cols-[30%_auto]">
+          <div className="grid grid-cols-1 md:grid-cols-[30%_auto] ">
             <div className="px-4">
               <Image
                 src={`${process.env.NEXT_PUBLIC_COURSE_IMAGE}/${data.course_image}`}
                 width={300}
                 height={200}
                 alt={`${data.course_name}`}
-                className="object-cover w-full h-[200px]"
+                className="object-cover w-full h-[150px] md:h-[200px] "
               />
-              <h2 className="text-2xl font-bold text-black py-4">
+              <h2 className="text-xl md:text-2xl font-bold text-black py-4">
                 {" "}
                 Course Price: Rs {data.price}
               </h2>
             </div>
-            <p className="text-xl font-light text-black text-justify">
+            <p className="text-xl font-light text-black text-justify px-4">
               {data.course_desc}
             </p>
           </div>
