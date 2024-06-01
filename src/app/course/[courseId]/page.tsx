@@ -1,4 +1,6 @@
 import { TCourseSingle, displaySingleCourse } from "@/api/course-api";
+import Image from "next/image";
+import { Suspense } from "react";
 
 const DisplaySingleCourse = async ({
   params,
@@ -7,7 +9,35 @@ const DisplaySingleCourse = async ({
 }) => {
   const data = await displaySingleCourse<TCourseSingle>(params.courseId);
 
-  return <div>{data.course_name}</div>;
+  return (
+    <section>
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="max-w-[1320px] mx-auto">
+          <h1 className="text-2xl font-bold text-black py-2">
+            Course Name: {data.course_name}
+          </h1>
+          <div className="grid grid-cols-[30%_auto]">
+            <div className="px-4">
+              <Image
+                src={`${process.env.NEXT_PUBLIC_COURSE_IMAGE}/${data.course_image}`}
+                width={300}
+                height={200}
+                alt={`${data.course_name}`}
+                className="object-cover w-full h-[200px]"
+              />
+              <h2 className="text-2xl font-bold text-black py-4">
+                {" "}
+                Course Price: Rs {data.price}
+              </h2>
+            </div>
+            <p className="text-xl font-light text-black text-justify">
+              {data.course_desc}
+            </p>
+          </div>
+        </div>
+      </Suspense>
+    </section>
+  );
 };
 
 export default DisplaySingleCourse;
