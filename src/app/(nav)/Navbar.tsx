@@ -1,3 +1,4 @@
+import SearchBar from "@/components/searchbox/SearchBar";
 import Link from "next/link";
 const Navbar = () => {
   return (
@@ -8,6 +9,9 @@ const Navbar = () => {
       <Link href="/addCourse" className="hover:text-blue-500">
         Add Course
       </Link>
+      <div>
+        <SearchBar />
+      </div>
     </div>
   );
 };

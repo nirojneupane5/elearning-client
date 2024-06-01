@@ -33,3 +33,9 @@ export const displaySingleCourse=async<T>(id:string):Promise<T>=>{
     const response=await axios.get<T>(`${process.env.NEXT_PUBLIC_URL}/course/${id}`);
     return response.data
 }
+
+//Search course api
+export const searchCourse=async<T>(course_name:string):Promise<T>=>{
+    const response=await axios.get<T>(`${process.env.NEXT_PUBLIC_URL}/courseSearch?course_name=${course_name}`);
+    return response.data;
+}
