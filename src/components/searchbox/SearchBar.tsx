@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDebounce } from "use-debounce";
+import { Input } from "../ui/input";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const SearchBar = () => {
   const router = useRouter();
@@ -15,9 +17,11 @@ const SearchBar = () => {
     }
   }, [query, router]);
   return (
-    <div>
-      <input
+    <div className="flex items-center relative">
+      <AiOutlineSearch className="absolute text-black right-2" />
+      <Input
         type="text"
+        placeholder="Search"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         className="text-black rounded-md py-1 px-2"
