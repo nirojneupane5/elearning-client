@@ -14,6 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addCourseCategory } from "@/api/course-api";
+import { useToast } from "@/components/ui/use-toast";
+import { AxiosError } from "axios";
 const formSchema = z.object({
   category_name: z
     .string()
@@ -21,6 +23,7 @@ const formSchema = z.object({
 });
 const AddCourseCategory = () => {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,8 +33,23 @@ const AddCourseCategory = () => {
 
   const mutation = useMutation({
     mutationFn: addCourseCategory,
+    onError: (error: AxiosError) => {
+      let errorResponse =
+        JSON.stringify(error.response?.data) ||
+        "An unexpected error has occurred";
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: errorResponse,
+      });
+    },
     onSuccess: () => {
       form.reset(),
+        toast({
+          variant: "sucess",
+          title: "Success",
+          description: "Course category created successfully",
+        }),
         queryClient.invalidateQueries({ queryKey: ["course-cateogry"] });
     },
   });
