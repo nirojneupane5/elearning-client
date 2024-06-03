@@ -9,6 +9,9 @@ const Navbar = () => {
       <Link href="/course/addCourse" className="hover:text-blue-500">
         Add Course
       </Link>
+      <Link href="/course/addCourseCategory" className="hover:text-blue-500">
+        Add Course Category
+      </Link>
       <div>
         <SearchBar />
       </div>
