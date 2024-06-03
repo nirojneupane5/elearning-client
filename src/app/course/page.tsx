@@ -1,4 +1,5 @@
-import { TCourse, searchCourse } from "@/api/course-api";
+import { searchCourse } from "@/api/course/course-api";
+import { TCourse } from "@/api/course/course-type";
 import DisplayCourse from "@/components/course/DisplayCourse";
 import { Suspense } from "react";
 

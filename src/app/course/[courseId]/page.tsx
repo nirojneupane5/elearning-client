@@ -1,4 +1,5 @@
-import { TCourseSingle, displaySingleCourse } from "@/api/course-api";
+import { displaySingleCourse } from "@/api/course/course-api";
+import { TCourseSingle } from "@/api/course/course-type";
 import Image from "next/image";
 import { Suspense } from "react";
 

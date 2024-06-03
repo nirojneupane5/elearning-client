@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCourse } from "@/api/course-api";
+
 import { useToast } from "@/components/ui/use-toast";
 import { AxiosError } from "axios";
 import { Textarea } from "@/components/ui/textarea";
+import { createCourse } from "@/api/course/course-api";
 
 const formSchema = z.object({
   course_name: z.string().min(2, { message: "Please enter the course name" }),
