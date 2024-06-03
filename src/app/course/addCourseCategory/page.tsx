@@ -16,6 +16,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import { AxiosError } from "axios";
 import { addCourseCategory } from "@/api/course/course-api";
+import DisplayCourseCategory from "./displayCourseCategory";
 const formSchema = z.object({
   category_name: z
     .string()
@@ -82,6 +83,7 @@ const AddCourseCategory = () => {
           <Button type="submit">Submit</Button>
         </form>
       </Form>
+      <DisplayCourseCategory />
     </div>
   );
 };
