@@ -36,3 +36,9 @@ export const displayCourseCategory=async<T>():Promise<T>=>{
     const response=await axios.get<T>(`${process.env.NEXT_PUBLIC_URL}/course-category`);
     return response.data
 }
+
+//Delete course category
+export const deleteCourseCategory=async(id:string)=>{
+    const response=await axios.delete(`${process.env.NEXT_PUBLIC_URL}/course-category/${id}`);
+    return response.data;
+}
