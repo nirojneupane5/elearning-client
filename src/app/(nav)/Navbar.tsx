@@ -6,7 +6,7 @@ const Navbar = () => {
       <Link href="/" className="hover:text-blue-500">
         Home
       </Link>
-      <Link href="/addCourse" className="hover:text-blue-500">
+      <Link href="/course/addCourse" className="hover:text-blue-500">
         Add Course
       </Link>
       <div>
