@@ -16,6 +16,11 @@ export type TCourseSingle={
     course_image:string
 }
 
+//Defining the type of course category
+type TCourseCategory={
+    category_name:string
+}
+
 //Create a course
 export const createCourse=async(newsValue:FormData)=>{
     const response=await axios.post(`${process.env.NEXT_PUBLIC_URL}/course`,newsValue);
@@ -41,7 +46,7 @@ export const searchCourse=async<T>(course_name:string):Promise<T>=>{
 }
 
 //Add course categroy
-export const addCourseCategory=async()=>{
-    const response=await axios.post(`${process.env.NEXT_PUBLIC_URL}/course-category`);
+export const addCourseCategory=async(newValue:TCourseCategory)=>{
+    const response=await axios.post(`${process.env.NEXT_PUBLIC_URL}/course-category`,newValue);
     return response.data;
 }

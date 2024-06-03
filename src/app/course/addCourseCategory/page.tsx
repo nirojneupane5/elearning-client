@@ -12,20 +12,32 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addCourseCategory } from "@/api/course-api";
 const formSchema = z.object({
   category_name: z
     .string()
     .min(2, { message: "Please enter the course categroy" }),
 });
 const AddCourseCategory = () => {
+  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       category_name: "",
     },
   });
+
+  const mutation = useMutation({
+    mutationFn: addCourseCategory,
+    onSuccess: () => {
+      form.reset(),
+        queryClient.invalidateQueries({ queryKey: ["course-cateogry"] });
+    },
+  });
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    mutation.mutate(values);
   };
   return (
     <div className="max-w-[1320px] mx-auto">
@@ -39,7 +51,7 @@ const AddCourseCategory = () => {
                 <FormLabel>Cateogry name</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="shadcn"
+                    placeholder="Cateogry name"
                     {...field}
                     className="w-[300px]"
                   />
