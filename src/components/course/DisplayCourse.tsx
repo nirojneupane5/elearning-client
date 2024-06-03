@@ -1,4 +1,4 @@
-import { TCourse } from "@/api/course-api";
+import { TCourse } from "@/api/course/course-type";
 import Image from "next/image";
 import Link from "next/link";
 
