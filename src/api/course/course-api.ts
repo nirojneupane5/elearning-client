@@ -30,3 +30,9 @@ export const addCourseCategory=async(newValue:TCourseCategory)=>{
     const response=await axios.post(`${process.env.NEXT_PUBLIC_URL}/course-category`,newValue);
     return response.data;
 }
+
+//Display course category
+export const displayCourseCategory=async<T>():Promise<T>=>{
+    const response=await axios.get<T>(`${process.env.NEXT_PUBLIC_URL}/course-category`);
+    return response.data
+}

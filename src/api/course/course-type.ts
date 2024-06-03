@@ -18,3 +18,9 @@ export type TCourseSingle={
 export type TCourseCategory={
     category_name:string
 }
+
+//Category Response
+export type TCourseCategoryResponse={
+    _id:string,
+    category_name:string
+}[]
