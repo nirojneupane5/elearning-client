@@ -2,10 +2,16 @@ import { displayCourseCategory } from "@/api/course/course-api";
 import { TCourseCategoryResponse } from "@/api/course/course-type";
 import { useQuery } from "@tanstack/react-query";
 const DisplayCourseCategory = () => {
-  const { isPending, error, data } = useQuery<TCourseCategoryResponse>({
+  const { isLoading, error, data } = useQuery<TCourseCategoryResponse>({
     queryKey: ["course-cateogry"],
     queryFn: displayCourseCategory,
   });
+  if (isLoading) {
+    <h1>Loading...</h1>;
+  }
+  if (error) {
+    <h1>Error while fetching cateogry</h1>;
+  }
   return (
     <div className="mt-5">
       {data &&
