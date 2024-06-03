@@ -42,3 +42,14 @@ export const deleteCourseCategory=async(id:string)=>{
     const response=await axios.delete(`${process.env.NEXT_PUBLIC_URL}/course-category/${id}`);
     return response.data;
 }
+
+
+//Update course category
+
+
+export const updateCourseCategory=async(value:{id:string,category_name:string})=>{
+    const response=await axios.patch(`${process.env.NEXT_PUBLIC_URL}/course-category/${value.id}`,{
+        category_name:value.category_name
+    });
+    return response.data
+}

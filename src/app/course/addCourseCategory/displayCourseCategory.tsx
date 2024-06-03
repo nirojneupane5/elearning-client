@@ -1,10 +1,21 @@
+"use client";
+import { useState } from "react";
 import {
   deleteCourseCategory,
   displayCourseCategory,
+  updateCourseCategory,
 } from "@/api/course/course-api";
 import { TCourseCategoryResponse } from "@/api/course/course-type";
 import { Button } from "@/components/ui/button";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 
 const DisplayCourseCategory = () => {
   const queryClient = useQueryClient();
@@ -12,6 +23,7 @@ const DisplayCourseCategory = () => {
     queryKey: ["course-cateogry"],
     queryFn: displayCourseCategory,
   });
+  const [catgoryName, setCategoryName] = useState<string>("");
 
   if (isLoading) {
     <h1>Loading...</h1>;
@@ -19,17 +31,35 @@ const DisplayCourseCategory = () => {
   if (error) {
     <h1>Error while fetching cateogry</h1>;
   }
+  //Delete a course category
   const mutation = useMutation({
     mutationFn: deleteCourseCategory,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["course-cateogry"] });
     },
   });
+
+  //Update a course category
+  const updateMutation = useMutation({
+    mutationFn: updateCourseCategory,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["course-cateogry"] });
+    },
+  });
+
   const handleClick = (id: string) => {
     mutation.mutate(id);
   };
+
+  const handleUpdate = (id: string, catgoryName: string) => {
+    const info = {
+      id: id,
+      category_name: catgoryName,
+    };
+    updateMutation.mutate(info);
+  };
   return (
-    <div className="grid grid-cols-4 py-5 gap-5">
+    <div className="grid grid-cols-3 py-5 gap-5">
       {data &&
         data.map((info, index) => (
           <div
@@ -37,13 +67,47 @@ const DisplayCourseCategory = () => {
             className="shadow-md rounded-md px-5 py-3 border-[1px] border-gray-200 hover:scale-105 duration-300"
           >
             <div className="flex items-center justify-between">
-              <h1 className="text-xl text-black">{info.category_name}</h1>
-              <Button
-                className="bg-red-500"
-                onClick={() => handleClick(info._id)}
-              >
-                X
-              </Button>
+              <div>
+                <h1 className="text-xl text-black">{info.category_name}</h1>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  className="bg-red-500 hover:bg-red-700"
+                  onClick={() => handleClick(info._id)}
+                >
+                  X
+                </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="bg-blue-500 hover:bg-blue-700">
+                      Update
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>Category name</DialogTitle>
+                    </DialogHeader>
+                    <div className="flex items-center space-x-2">
+                      <div className="grid flex-1 gap-2">
+                        <Input
+                          type="text"
+                          placeholder={info.category_name}
+                          value={catgoryName}
+                          onChange={(e) => setCategoryName(e.target.value)}
+                        />
+                      </div>
+                      <Button
+                        type="submit"
+                        size="sm"
+                        className="px-3"
+                        onClick={() => handleUpdate(info._id, catgoryName)}
+                      >
+                        Update
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
             </div>
           </div>
         ))}
