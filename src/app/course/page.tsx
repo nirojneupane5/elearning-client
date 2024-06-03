@@ -1,5 +1,5 @@
 import { TCourse, searchCourse } from "@/api/course-api";
-import DisplayCourse from "@/course/DisplayCourse";
+import DisplayCourse from "@/components/course/DisplayCourse";
 import { Suspense } from "react";
 
 const CourseDisplay = async ({

@@ -1,6 +1,6 @@
 import { displayCourse, TCourse } from "@/api/course-api";
 import { Suspense } from "react";
-import DisplayCourse from "@/course/DisplayCourse";
+import DisplayCourse from "@/components/course/DisplayCourse";
 const Home = async () => {
   const courseData = await displayCourse<TCourse>();
 
