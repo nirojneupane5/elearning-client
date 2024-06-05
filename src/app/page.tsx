@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import DisplayCourse from "@/components/course/DisplayCourse";
 import { displayCourse } from "@/api/course/course-api";
 import { TCourse } from "@/api/course/course-type";
+
 const Home = async () => {
   const courseData = await displayCourse<TCourse>();
 

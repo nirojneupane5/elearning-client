@@ -16,6 +16,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
+import { AxiosError } from "axios";
 
 const DisplayCourseCategory = () => {
   const queryClient = useQueryClient();
@@ -23,6 +25,7 @@ const DisplayCourseCategory = () => {
     queryKey: ["course-cateogry"],
     queryFn: displayCourseCategory,
   });
+  const { toast } = useToast();
   const [catgoryName, setCategoryName] = useState<string>("");
 
   if (isLoading) {
@@ -34,16 +37,46 @@ const DisplayCourseCategory = () => {
   //Delete a course category
   const mutation = useMutation({
     mutationFn: deleteCourseCategory,
+    onError: (error: AxiosError) => {
+      let errorResponse =
+        JSON.stringify(error.response?.data) ||
+        "An unexpected error has occurred";
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: errorResponse,
+      });
+    },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["course-cateogry"] });
+      toast({
+        variant: "sucess",
+        title: "Success",
+        description: "Course category deleted sucessfully",
+      }),
+        queryClient.invalidateQueries({ queryKey: ["course-cateogry"] });
     },
   });
 
   //Update a course category
   const updateMutation = useMutation({
     mutationFn: updateCourseCategory,
+    onError: (error: AxiosError) => {
+      let errorResponse =
+        JSON.stringify(error.response?.data) ||
+        "An unexpected error has occurred";
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: errorResponse,
+      });
+    },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["course-cateogry"] });
+      toast({
+        variant: "sucess",
+        title: "Success",
+        description: "Course category Updated sucessfully sucessfully",
+      }),
+        queryClient.invalidateQueries({ queryKey: ["course-cateogry"] });
     },
   });
 
