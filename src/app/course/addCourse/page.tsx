@@ -88,6 +88,7 @@ const Course = () => {
     const formData = new FormData();
     formData.append("course_name", values.course_name);
     formData.append("course_desc", values.course_desc);
+    formData.append("category", values.category);
     formData.append("price", values.price.toString());
 
     if (values.image && values.image[0]) {
