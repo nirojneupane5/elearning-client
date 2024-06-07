@@ -11,13 +11,22 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { Input } from "@/components/ui/input";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 
 import { useToast } from "@/components/ui/use-toast";
 import { AxiosError } from "axios";
 import { Textarea } from "@/components/ui/textarea";
-import { createCourse } from "@/api/course/course-api";
+import { createCourse, displayCourseCategory } from "@/api/course/course-api";
+import { TCourseCategoryResponse } from "@/api/course/course-type";
 
 const formSchema = z.object({
   course_name: z.string().min(2, { message: "Please enter the course name" }),
@@ -29,6 +38,7 @@ const formSchema = z.object({
     .any()
     .refine((file) => file?.length == 1, "Image is required")
     .optional(),
+  category: z.string({ required_error: "Please select the course category" }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -36,6 +46,10 @@ type FormValues = z.infer<typeof formSchema>;
 const Course = () => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
+  const { data } = useQuery<TCourseCategoryResponse>({
+    queryKey: ["course-category"],
+    queryFn: displayCourseCategory,
+  });
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -155,6 +169,37 @@ const Course = () => {
                     accept="image/png, image/jpeg"
                   />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Course category */}
+          <FormField
+            control={form.control}
+            name="category"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Category</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Please select the course category" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {data &&
+                      data.map((info, index) => (
+                        <SelectItem value={info.category_name} key={index}>
+                          {info.category_name}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
+
                 <FormMessage />
               </FormItem>
             )}
