@@ -97,117 +97,122 @@ const Course = () => {
     mutation.mutate(formData);
   };
   return (
-    <div>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 max-w-[400px]"
-        >
-          <FormField
-            control={form.control}
-            name="course_name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Course Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Course name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="course_desc"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Course Description</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Course Description"
-                    className="h-[200px]"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="price"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Price</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Price"
-                    type="number"
-                    {...field}
-                    onChange={(e) =>
-                      field.onChange(
-                        e.target.value ? parseFloat(e.target.value) : ""
-                      )
-                    }
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+    <div className="max-w-[1320px] mx-auto">
+      <h1 className="text-xl font-bold text-black text-center">Add course</h1>
+      <div className="flex justify-center">
+        <div className="px-[10px]">
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-8 max-w-[400px]"
+            >
+              <FormField
+                control={form.control}
+                name="course_name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Course Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Course name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="course_desc"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Course Description</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Course Description"
+                        className="h-[200px]"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Price</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Price"
+                        type="number"
+                        {...field}
+                        onChange={(e) =>
+                          field.onChange(
+                            e.target.value ? parseFloat(e.target.value) : ""
+                          )
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          <FormField
-            control={form.control}
-            name="image"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Course Image</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Course Image"
-                    type="file"
-                    {...fileRef}
-                    accept="image/png, image/jpeg"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+              <FormField
+                control={form.control}
+                name="image"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Course Image</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Course Image"
+                        type="file"
+                        {...fileRef}
+                        accept="image/png, image/jpeg"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          {/* Course category */}
-          <FormField
-            control={form.control}
-            name="category"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Category</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Please select the course category" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {data &&
-                      data.map((info, index) => (
-                        <SelectItem value={info.category_name} key={index}>
-                          {info.category_name}
-                        </SelectItem>
-                      ))}
-                  </SelectContent>
-                </Select>
+              {/* Course category */}
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Category</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Please select the course category" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {data &&
+                          data.map((info, index) => (
+                            <SelectItem value={info.category_name} key={index}>
+                              {info.category_name}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit">Submit</Button>
-        </form>
-      </Form>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">Submit</Button>
+            </form>
+          </Form>
+        </div>
+      </div>
     </div>
   );
 };
