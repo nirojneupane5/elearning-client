@@ -2,6 +2,7 @@
 import { useState } from "react";
 import {
   deleteCourseCategory,
+  displayCourse,
   displayCourseCategory,
   updateCourseCategory,
 } from "@/api/course/course-api";
@@ -25,6 +26,13 @@ const DisplayCourseCategory = () => {
     queryKey: ["course-cateogry"],
     queryFn: displayCourseCategory,
   });
+
+  const { data: course } = useQuery<TCourseCategoryResponse>({
+    queryKey: ["course-cateogry"],
+    queryFn: displayCourse,
+  });
+  console.log(course);
+
   const { toast } = useToast();
   const [catgoryName, setCategoryName] = useState<string>("");
 
