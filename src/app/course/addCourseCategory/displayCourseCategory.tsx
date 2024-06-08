@@ -2,11 +2,10 @@
 import { useState } from "react";
 import {
   deleteCourseCategory,
-  displayCourse,
   displayCourseCategory,
   updateCourseCategory,
 } from "@/api/course/course-api";
-import { TCourse, TCourseCategoryResponse } from "@/api/course/course-type";
+import { TCourseCategoryResponse } from "@/api/course/course-type";
 import { Button } from "@/components/ui/button";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -26,12 +25,6 @@ const DisplayCourseCategory = () => {
     queryKey: ["course-cateogry"],
     queryFn: displayCourseCategory,
   });
-
-  const { data: course } = useQuery<TCourse>({
-    queryKey: ["course"],
-    queryFn: displayCourse,
-  });
-  console.log(course);
 
   const { toast } = useToast();
   const [catgoryName, setCategoryName] = useState<string>("");
