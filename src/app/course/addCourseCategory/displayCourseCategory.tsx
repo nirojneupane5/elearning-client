@@ -6,7 +6,7 @@ import {
   displayCourseCategory,
   updateCourseCategory,
 } from "@/api/course/course-api";
-import { TCourseCategoryResponse } from "@/api/course/course-type";
+import { TCourse, TCourseCategoryResponse } from "@/api/course/course-type";
 import { Button } from "@/components/ui/button";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -27,8 +27,8 @@ const DisplayCourseCategory = () => {
     queryFn: displayCourseCategory,
   });
 
-  const { data: course } = useQuery<TCourseCategoryResponse>({
-    queryKey: ["course-cateogry"],
+  const { data: course } = useQuery<TCourse>({
+    queryKey: ["course"],
     queryFn: displayCourse,
   });
   console.log(course);
