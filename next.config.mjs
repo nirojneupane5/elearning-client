@@ -6,7 +6,7 @@ const nextConfig = {
             hostname: 'localhost',
         },{
             protocol:"https",
-            hostname:"elearning-server-5.onrender.com"
+            hostname:"elearning-server-6.onrender.com"
 
         },
     ]
