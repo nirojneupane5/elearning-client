@@ -4,7 +4,12 @@ const nextConfig = {
         remotePatterns:[{
             protocol: 'http',
             hostname: 'localhost',
-        },]
+        },{
+            protocol:"https",
+            hostname:"elearning-server-5.onrender.com"
+
+        },
+    ]
     }
 };
 
