@@ -33,7 +33,7 @@ const DisplayCourseCategory = () => {
     <h1>Loading...</h1>;
   }
   if (error) {
-    <h1>Error while fetching cateogry</h1>;
+    <h1>Error while fetching cateogrys</h1>;
   }
   //Delete a course category
   const mutation = useMutation({
